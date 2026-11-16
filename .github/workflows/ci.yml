@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build:
     name: Build, test and pack
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted, nkeeper]
     timeout-minutes: 30
     env:
       # nuget.config reads these. The workflow's own token is enough to restore from GitHub Packages.
