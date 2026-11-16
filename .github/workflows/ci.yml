@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Least privilege: jobs only read the repository and GitHub Packages (for NKeeper's SDK).
+permissions:
+  contents: read
+  packages: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: Build, test and pack
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      # nuget.config reads these. The workflow's own token is enough to restore from GitHub Packages.
+      NUGET_USERNAME: ${{ github.actor }}
+      NUGET_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Restore (locked)
+        run: dotnet restore NKeeper.Plugin.WakeOnLan.slnx --locked-mode
+
+      - name: Check formatting
+        run: dotnet format NKeeper.Plugin.WakeOnLan.slnx --verify-no-changes --no-restore
+
+      # The plugin has no frontend, so there is nothing to lint or typecheck. A frontend would be built by
+      # NKeeper.Plugin.Build, and would get `npm ci`, a lint and a typecheck here.
+
+      # Building the plugin packs it and signs it with a development key made fresh for this run
+      # (plugin-security.md §10 in NKeeper). That package is for the tests and for inspection, never for release.
+      - name: Build and pack (development key)
+        run: dotnet build NKeeper.Plugin.WakeOnLan.slnx --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test NKeeper.Plugin.WakeOnLan.slnx --no-build --configuration Release
+
+      - name: Upload the development-signed package
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: wake-on-lan-development-package
+          path: artifacts/plugins/*.nkp
+          if-no-files-found: error
