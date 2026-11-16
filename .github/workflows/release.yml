@@ -20,7 +20,7 @@ concurrency:
 jobs:
   release:
     name: Build, test, sign and publish
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted, nkeeper]
     timeout-minutes: 45
     environment: release
     env:
