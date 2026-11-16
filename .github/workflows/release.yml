@@ -22,7 +22,7 @@ jobs:
     name: Build, test, sign and publish
     # Signing runs on the single-use runner, reset after every job, so nothing an earlier job left behind can
     # reach the key.
-    runs-on: nkeeper-clean
+    runs-on: [self-hosted, nkeeper]
     timeout-minutes: 45
     environment: release
     env:
