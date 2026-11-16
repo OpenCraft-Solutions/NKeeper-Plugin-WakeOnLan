@@ -1,6 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- The wake-on-lan plugin (docs/architecture.md §7.15). Built, packed and signed by plugins/NKeeperPlugin.targets. -->
-  <Import Project="../../NKeeperPlugin.targets" />
+  <!--
+    The wake-on-lan plugin (docs/architecture.md §7.15 in NKeeper). It references only the published SDK,
+    which the server shares with it (so its assembly doesn't travel in the package, plugin-security.md §7.1).
+    NKeeper.Plugin.Build builds, packs and signs the plugin into artifacts/plugins/.
+  -->
+  <ItemGroup>
+    <PackageReference Include="NKeeper.Abstractions" ExcludeAssets="runtime" />
+    <PackageReference Include="NKeeper.Plugin.Build" PrivateAssets="all" />
+  </ItemGroup>
 
 </Project>

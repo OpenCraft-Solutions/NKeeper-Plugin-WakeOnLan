@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="backend/NKeeper.Plugins.WakeOnLan.csproj" />
+  <Project Path="tests/NKeeper.Plugins.WakeOnLan.Tests.csproj" />
+</Solution>

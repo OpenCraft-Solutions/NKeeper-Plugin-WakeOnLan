@@ -1,0 +1,21 @@
+<Project>
+  <!-- Central package management: every NuGet version is set here, once. -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <!-- The published SDK packages share one version, the SDK's (docs/architecture.md §4, §9 in NKeeper). -->
+    <NKeeperSdkVersion>1.0.0</NKeeperSdkVersion>
+  </PropertyGroup>
+
+  <ItemGroup Label="NKeeper">
+    <PackageVersion Include="NKeeper.Abstractions" Version="$(NKeeperSdkVersion)" />
+    <PackageVersion Include="NKeeper.Plugin.Build" Version="$(NKeeperSdkVersion)" />
+    <PackageVersion Include="NKeeper.Testing" Version="$(NKeeperSdkVersion)" />
+  </ItemGroup>
+
+  <ItemGroup Label="Tests">
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="xunit.v3" Version="3.2.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+  </ItemGroup>
+</Project>

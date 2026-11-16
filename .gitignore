@@ -1,0 +1,37 @@
+# --- Secrets / local configuration ---
+.env
+.env.*
+*.local.json
+secrets/
+*.pfx
+*.pem
+*.key
+*.crt
+
+# --- .NET ---
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+*.trx
+coverage/
+publish/
+artifacts/
+
+# --- Node (a frontend, if the plugin ever gets one) ---
+node_modules/
+dist/
+*.tsbuildinfo
+npm-debug.log*
+
+# --- Editors / OS ---
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+.vscode/*
+
+# --- Local development keys (plugin signing) and the local package feed ---
+.dev/

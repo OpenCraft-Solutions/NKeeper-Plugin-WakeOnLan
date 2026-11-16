@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+    <!-- Test names use underscores; inline test-data arrays (CA1861) are clearer than static fields. -->
+    <NoWarn>$(NoWarn);CA1707;CA2234;CA1861</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NKeeper.Testing" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Built first, so its package is in artifacts/plugins when the tests start the server; not referenced as an assembly. -->
+    <ProjectReference Include="..\backend\NKeeper.Plugins.WakeOnLan.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+</Project>
