@@ -2,9 +2,9 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Net.Sockets;
 using System.Text.Json;
-using Npgsql;
 using NKeeper.Plugins.Packaging;
 using NKeeper.Testing;
+using Npgsql;
 
 namespace NKeeper.Plugins.WakeOnLan.Tests;
 

@@ -4,7 +4,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <!-- The published SDK packages share one version, the SDK's (docs/architecture.md §4, §9 in NKeeper). -->
-    <NKeeperSdkVersion>1.0.0</NKeeperSdkVersion>
+    <NKeeperSdkVersion>1.0.1</NKeeperSdkVersion>
   </PropertyGroup>
 
   <ItemGroup Label="NKeeper">

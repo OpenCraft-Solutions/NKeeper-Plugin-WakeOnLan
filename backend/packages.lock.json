@@ -4,17 +4,17 @@
     "net10.0": {
       "NKeeper.Abstractions": {
         "type": "Direct",
-        "requested": "[1.0.0, )",
-        "resolved": "1.0.0",
-        "contentHash": "JJwcMKYcNVW8gFWrj+ssiZxVFgg1QO1ql2foKXelwdDYPBaJdBvHbXaeWj4ylqHD7m5yYUF5nGKJlGm6ojmrRw=="
+        "requested": "[1.0.1, )",
+        "resolved": "1.0.1",
+        "contentHash": "4ubSpFoRsmEE65GgtOGWTzqYOXeMZ24BF64p1SsUQO4JFFCZyuHlzt12oDJtFmq/VuZiuRMKUU+jytp/POQ74Q=="
       },
       "NKeeper.Plugin.Build": {
         "type": "Direct",
-        "requested": "[1.0.0, )",
-        "resolved": "1.0.0",
-        "contentHash": "ghFaQQvMLM3B9wX0e1lAN8nW8ruY24jjeMXmkHDy2dB9WcRuQY9gIeqMwjs9j3dlDurzKnNUsqPyphC2DeZt/g==",
+        "requested": "[1.0.1, )",
+        "resolved": "1.0.1",
+        "contentHash": "kbvnZxJP4URixiPahmW2WC2ojrD4k5z+aHjkgQ1Z2+s+EiJwgBBwvAtHgfVYTwcY299aG28U+TnwBcfWfjqL2w==",
         "dependencies": {
-          "NKeeper.Abstractions": "1.0.0"
+          "NKeeper.Abstractions": "1.0.1"
         }
       }
     }

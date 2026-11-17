@@ -14,10 +14,11 @@
       },
       "NKeeper.Testing": {
         "type": "Direct",
-        "requested": "[1.0.0, )",
-        "resolved": "1.0.0",
-        "contentHash": "qs0dObQgUpsvdJ6JnYxzfDf31sC5SAdAEN29GFqZ7Y0AwYLKTo4tGV1afkn16avu+V+9Hig+ADrr7yZpQ9cYTQ==",
+        "requested": "[1.0.1, )",
+        "resolved": "1.0.1",
+        "contentHash": "DL4iCAklYYIo8s0ePg5okGDXCrsPm9w5cRPiILXQLw6ohC4qaiLVHqnaGz1FxBW/U3aupWcapuOI5xzKJ9AJ9g==",
         "dependencies": {
+          "Npgsql": "10.0.3",
           "SSH.NET": "2026.0.0",
           "Testcontainers.PostgreSql": "4.14.0",
           "xunit.v3.extensibility.core": "3.2.2"
