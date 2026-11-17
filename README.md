@@ -61,7 +61,7 @@ The tests start NKeeper's test server (from `NKeeper.Testing`) as a separate pro
 Only a tag releases the plugin, and only the lead engineer tags.
 
 1. Set `version` in `backend/nkeeper-plugin.json`, and merge it to `main`.
-2. Tag the merge commit `v<version>` (for example `v0.1.0`) and push the tag.
+2. Tag the merge commit `v<version>` (for example `v1.0.0`) and push the tag.
 3. `release.yml` runs in the `release` environment, so an owner has to approve it. It then:
    - checks that the tag matches the manifest's version;
    - restores, builds and tests the plugin;
