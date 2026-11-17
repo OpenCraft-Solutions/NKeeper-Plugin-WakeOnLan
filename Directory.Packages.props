@@ -4,7 +4,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <!-- The published SDK packages share one version, the SDK's (docs/architecture.md §4, §9 in NKeeper). -->
-    <NKeeperSdkVersion>1.0.0</NKeeperSdkVersion>
+    <NKeeperSdkVersion>1.0.1</NKeeperSdkVersion>
   </PropertyGroup>
 
   <ItemGroup Label="NKeeper">
@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup Label="Tests">
+    <!-- The version NKeeper's own projects use. NKeeper.Testing's PostgreSQL fixture needs it but doesn't declare it. -->
+    <PackageVersion Include="Npgsql" Version="10.0.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />

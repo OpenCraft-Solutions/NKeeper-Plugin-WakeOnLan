@@ -18,11 +18,16 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  release:
-    name: Build, test, sign and publish
+  verify:
+    name: Check the tag, build and test
     runs-on: [self-hosted, nkeeper]
-    timeout-minutes: 45
-    environment: release
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: read
+    outputs:
+      id: ${{ steps.version.outputs.id }}
+      version: ${{ steps.version.outputs.version }}
     env:
       # nuget.config reads these. The workflow's own token is enough to restore from GitHub Packages.
       NUGET_USERNAME: ${{ github.actor }}
@@ -68,6 +73,29 @@ jobs:
       - name: Test
         run: dotnet test NKeeper.Plugin.WakeOnLan.slnx --no-build --configuration Release
 
+  release:
+    name: Sign and publish
+    needs: verify
+    # Signing runs on the single-use runner, reset after every job, so nothing an earlier job left behind can
+    # reach the key.
+    runs-on: nkeeper-clean
+    timeout-minutes: 30
+    environment: release
+    env:
+      NUGET_USERNAME: ${{ github.actor }}
+      NUGET_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Restore (locked)
+        run: dotnet restore backend/NKeeper.Plugins.WakeOnLan.csproj --locked-mode
+
       # The only step that sees the key. It's written to memory-backed storage, readable by this user only, for
       # the length of the build, and removed when the step ends however it ends. The variable is dropped from the
       # environment as soon as the file exists, so nothing the build starts inherits it. Nothing here prints it.
@@ -93,8 +121,8 @@ jobs:
       - name: Checksum
         id: package
         env:
-          ID: ${{ steps.version.outputs.id }}
-          VERSION: ${{ steps.version.outputs.version }}
+          ID: ${{ needs.verify.outputs.id }}
+          VERSION: ${{ needs.verify.outputs.version }}
         run: |
           set -euo pipefail
           cd release
@@ -111,7 +139,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ github.ref_name }}
-          VERSION: ${{ steps.version.outputs.version }}
+          VERSION: ${{ needs.verify.outputs.version }}
           PACKAGE: ${{ steps.package.outputs.name }}
           SHA256: ${{ steps.package.outputs.sha256 }}
         run: |
